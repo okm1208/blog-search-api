@@ -1,0 +1,101 @@
+server:
+  port: 8080
+  error:
+    path: /error
+    whitelabel:
+      enabled: false
+
+spring:
+  application:
+    name: blog-search-api
+  config:
+    import: "optional:configserver:"
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    url: jdbc:h2:mem:blog
+    driver-class-name: org.h2.Driver
+    username: admin
+    password: admin1234
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    database: H2
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+  h2:
+    console:
+      enabled: true
+      path: /h2
+
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: BASIC
+        connect-timeout: 5000
+        read-timeout: 5000
+  httpclient:
+    enabled: true
+    time-to-live: 30
+    time-to-live-unit: seconds
+  circuitbreaker:
+    enabled: true
+
+external:
+  kakao:
+    api-key : "KakaoAK 5c155fd8f7f3f0b64a336648b1c77617"
+    blog-search-base-url: "https://dapi.kakao.com"
+  naver:
+    client-id: "F8KCbIasIwi8P1QBrj7h"
+    client-secret: "M3cVsu2oAB"
+    blog-search-base-url: "https://openapi.naver.com"
+
+
+#hystrix:
+#  command:
+#    # 전역 설정
+#    default:
+#      execution.isolation.thread.timeoutInMilliseconds: 10000
+#      circuitBreaker:
+#        requestVolumeThreshold: 20
+#        errorThresholdPercentage: 50
+#    # kakao search 설정
+#    kakaoSearchPlace:
+#      execution.isolation.thread.timeoutInMilliseconds: 5000
+#      circuitBreaker:
+#        requestVolumeThreshold: 10
+#        errorThresholdPercentage: 50
+#      metrics:
+#        rollingStats:
+#          timeInMillisencods: 10000
+#    naverSearchPlace:
+#      execution.isolation.thread.timeoutInMilliseconds: 5000
+#      circuitBreaker:
+#        requestVolumeThreshold: 20
+#        errorThresholdPercentage: 50
+#      metrics:
+#        rollingStats:
+#          timeInMillisencods: 10000
+constant:
+  topSearchKeywordLimit: 10
+
+caching:
+  spring:
+    topSearchKeywordList: 3600000 # 1 Hour
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.springframework.orm.jpa: OFF
+    org.hibernate.dialect: OFF
+    org.springframework.web.client.RestTemplate: INFO
+    org.hibernate.SQL: OFF
+    org.hibernate.type.descriptor.sql.BasicBinder: OFF
+
