@@ -18,10 +18,14 @@
 $ ./gradlew clean build
 ```
 
+#### 실행 파일 다운로드
+- [kakao-blog-search-assignement-1.0.0.jar](https://github.com/okm1208/blog-search-api/releases/download/1.0.0/kakao-blog-search-assignement-1.0.0.jar)
+
 #### Run
 ```bash
-$ java -jar build/libs/kakao-blog-search-assignement-0.0.1.jar
+$ java -jar kakao-blog-search-assignement-1.0.0.jar
 ```
+
 #### DB (h2) 접속
 ```bash
 http://localhost:8080/h2
